@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout/basic_layout}">
+<head>
+<title></title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container text-center">traffic-web</div>
+		<tr th:each="crackdown : ${list}">
+	        <td th:text="${crackdown.carNo}">12마4088</td> , 
+	        <td th:text="${crackdown.location}">마장동</td>,
+	        <td th:text="${crackdown.price}">32000</td><br/>
+		</tr>
+	</div>
+</body>
+</html>
