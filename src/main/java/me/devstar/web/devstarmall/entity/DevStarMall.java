@@ -5,7 +5,7 @@ import javax.persistence.Table;
 import me.devstar.common.entity.BaseModel;
 
 @Entity
-@Table(name = "crackdown")
+@Table(name = "devstarmall")
 public class DevStarMall extends BaseModel {
 
 	private static final long serialVersionUID = -2338609640566469875L;
