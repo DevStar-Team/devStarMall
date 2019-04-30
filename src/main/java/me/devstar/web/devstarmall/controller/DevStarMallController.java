@@ -24,7 +24,7 @@ import me.devstar.web.devstarmall.service.DevStarMallService;
 @RequestMapping(DevStarMallController.REQUEST_MAPPING_PREFIX)
 public class DevStarMallController {
 	
-	public static final String REQUEST_MAPPING_PREFIX = "/index";
+	public static final String REQUEST_MAPPING_PREFIX = "/";
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DevStarMallController.class);
 	
