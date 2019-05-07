@@ -11,6 +11,12 @@
 	        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
 	          <div class="tm-bg-primary-dark tm-block tm-block-products">
 	            <div class="tm-product-table-container">
+                 <!-- <form action="/productEdit" th:action="@{/productEdit}" method="post"> -->
+                 <!-- <form action="#" th:action="@{/productEdit}" th:object="${seedStarter}" method="post"> -->
+                 <form action="#" id="productfrm2" th:action="@{/product/productDetail}"  method="post">
+                 	<input type="hidden" name="id" id="id" value=""/>
+				 </form>
+                 <form action="#" id="productfrm" th:action="@{/product/productDetail}"  method="post">
 	              <table class="table table-hover tm-table-small tm-product-table">
 	                <thead>
 	                  <tr>
@@ -23,9 +29,14 @@
 	                  </tr>
 	                </thead>
 	                <tbody>
-	                  <tr th:each="product : ${list}">
+	                  <tr id="productid" th:each="product : ${list}">
 	                    <th scope="row"><input type="checkbox" /></th>
-	                    <td th:text="${product.name}" class="tm-product-name">Lorem Ipsum Product 1</td>
+	                    
+	                    <!-- <input th:type="hidden" name="id" th:field="${notes.id}" /> -->
+	                    <input type="hidden" id="id" name="id" th:value="*{product.id}" />
+	                    <!-- <td th:text="${product.id}">1</td> -->
+	                    <td th:text="${product.name}" th:onclick="'javascript:detail(' + ${product.id} + ')'">Lorem Ipsum Product 1</td>
+	                    <button th:onclick="'javascript:upload(' + ${gallery} + ')'"></button>
 	                    <td th:text="${product.price}">1,450</td>
 	                    <td th:text="${product.category}">550</td>
 	                    <td>28 March 2019</td>
@@ -37,10 +48,11 @@
 	                  </tr>
 	                </tbody>
 	              </table>
+                  </form>
 	            </div>
 	            <!-- table container -->
 	            <a
-	              href="add-product.html"
+	              href="/product/productInsert"
 	              class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
 	            <button class="btn btn-primary btn-block text-uppercase">
 	              Delete selected products
@@ -75,15 +87,19 @@
 	      </div>
 	    </div>	    
 	    
-    <script>
-    window.onload  = function() {
-      $(function() {
-        $(".tm-product-name").on("click", function() {
-          window.location.href = "/product/productEdit";
-        });
-      });
-    }
-    </script>        
+	<script>
+	    window.onload  = function() {	    
+		    $( "#productid" ).click(function() {
+		    	  $( "#productfrm" ).submit();
+		    });	
+	    }
+	    function detail(id) {
+	    	$("#id").val(id);
+	    	alert(id);
+	    	$( "#productfrm2" ).submit();
+	    	
+	    }
+    </script> 
     </div>
 </body>
 

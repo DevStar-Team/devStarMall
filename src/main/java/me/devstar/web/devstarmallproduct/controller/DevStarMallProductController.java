@@ -1,5 +1,7 @@
 package me.devstar.web.devstarmallproduct.controller;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.text.StringTokenizer;
 import org.slf4j.Logger;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import me.devstar.common.entity.SearchForm;
 import me.devstar.web.devstarmallproduct.entity.DevStarMallProduct;
@@ -75,8 +79,38 @@ public class DevStarMallProductController {
 		return ids;
 	}
 	
-	@GetMapping("/productEdit")
+	@RequestMapping(value= "/productInsertExecute", method=RequestMethod.POST)
+	public @ResponseBody DevStarMallProduct AjaxView(DevStarMallProduct devstarmallproduct)  {
+
+	    return service.create(devstarmallproduct);
+	}
+	
+	@RequestMapping(value= "/productEditExecute", method=RequestMethod.POST)
+	public @ResponseBody DevStarMallProduct AjaxView2(DevStarMallProduct devstarmallproduct)  {
+
+	    return service.modify(devstarmallproduct);
+	}
+	
+	@GetMapping("/productInsert")
+	public String productinsert(Model model, final SearchForm searchForm, DevStarMallProduct devstarmallproduct) {
+		return "devStarMall/productInsert";
+	}
+	
+    @Transactional
+	@PostMapping("/productDetail")
+	public String productdetail(Model model, final SearchForm searchForm, DevStarMallProduct devstarmallproduct) {
+    	System.out.println("??????????????? = " + devstarmallproduct.getId());
+		DevStarMallProduct product = service.get(devstarmallproduct.getId());
+		model.addAttribute("detail", product);
+		System.out.println("tset1 = " + product.getName());
+		System.out.println("tset2 = " + product.getPrice());
+		return "devStarMall/productDetail";
+	}
+	
+	
+	@PostMapping("/productEdit")
 	public String productedit(Model model, final SearchForm searchForm) {
+		
 		return "devStarMall/productEdit";
 	}
 
