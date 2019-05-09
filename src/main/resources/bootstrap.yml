@@ -4,7 +4,7 @@ server:
 spring:
   cloud:
     config:
-      uri: http://13.124.204.199:8888
+      uri: http://config.devstar.me:8888
       name: devStarMall-admin
       headers:
         application-name: devStarMall-admin
