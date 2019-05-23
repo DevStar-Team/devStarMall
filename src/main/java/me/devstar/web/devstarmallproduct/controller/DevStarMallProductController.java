@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import me.devstar.common.entity.SearchForm;
 import me.devstar.web.devstarmallproduct.entity.DevStarMallProduct;
 import me.devstar.web.devstarmallproduct.service.DevStarMallProductService;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Controller
 @RequestMapping(DevStarMallProductController.REQUEST_MAPPING_PREFIX)
@@ -54,8 +57,47 @@ public class DevStarMallProductController {
 	
 	@GetMapping
 	public String productlist(Model model, final SearchForm searchForm) {
+		
+/*        String host = "devstar-redis-001.wp4vum.0001.apn2.cache.amazonaws.com";
+        int port = 6379;
+        int timeout = 3000;
+        int db = 0;
+        
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        
+        JedisPool pool = new JedisPool(jedisPoolConfig,host,port,timeout,null,db);
+        
+        Jedis jedis = pool.getResource();
+        //Connect 체크 
+        System.out.println(jedis.isConnected());
+        
+        jedis.set("key4", "6");
+        jedis.set("key5", "6");
+        
+        // 데이터의 만료시간을 지정
+        jedis.expire("key5",1);
+        
+        System.out.println(jedis.get("key5"));
+        
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println(jedis.get("key5"));
+    
+        if( jedis != null ){
+            jedis.close();
+        }
+        pool.close();*/
+
+        
+		
 		Page<DevStarMallProduct> page = service.getList(searchForm);
 		model.addAttribute("list", page.getContent());
+		
+		
 		return "devStarMall/productList";
 	}
 
